@@ -69,7 +69,7 @@ export const UserDetailModal: VFC<Props> = memo((props) => {
 
         setProfileImage(imageFile)
     }
-console.log(loginUser)
+
     return (
         <Modal
             isOpen={isOpen}
@@ -99,7 +99,7 @@ console.log(loginUser)
                                     </label>
                                 </div>
                             </FormControl>
-                            {(loginUser.is_admin || loginUser.id == user?.id) && (
+                            {(loginUser?.is_admin || loginUser?.id == user?.id) && (
                                 <>
                                     <FormControl>
                                         <FormLabel>
@@ -158,7 +158,7 @@ console.log(loginUser)
 
 
                 </ModalBody>
-                {(loginUser.is_admin || loginUser.id == user?.id) && (
+                {(loginUser?.is_admin || loginUser?.id == user?.id) && (
                     <ModalFooter>
                         <PrimaryButton onClick={onClickUpdate}>更新</PrimaryButton>
                     </ModalFooter>

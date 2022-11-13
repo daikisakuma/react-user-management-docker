@@ -17,17 +17,25 @@ type Props = {
 
 export const SettingUserDetailModal: VFC<Props> = memo((props) => {
     const { user, isOpen, onClose, getUsers } = props;
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const { updateUser } = useUpdate();
 
-    const onChangeName = (e: ChangeEvent<HTMLInputElement>) => setName(e.target.value);
-    const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
-    const onClickUpdate = () => updateUser("#form-user-update", '', onClose, getUsers, "settingUserDetail");
+    const [name, setName]   = useState("");
+    const [email, setEmail] = useState("");
+    const { updateUser }    = useUpdate();
+
+    const [isShowState, setIsShowState]   = useState(null)
+    const [isAdminState, setIsAdminState] = useState(null)
+
+    const onChangeName    = (e: ChangeEvent<HTMLInputElement>) => setName(e.target.value);
+    const onChangeEmail   = (e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
+    const onChangeIsShow  = (e: { target: { value: any; }; }) => setIsShowState(e.target.value);
+    const onChangeIsAdmin = (e: { target: { value: any; }; }) => setIsShowState(e.target.value);
+    const onClickUpdate   = () => updateUser("#form-user-update", '', onClose, getUsers, "settingUserDetail");
 
     useEffect(() => {
-        setName(user?. name ?? '');
-        setEmail(user?. email ?? '');
+        setName(user?.name ?? '');
+        setEmail(user?.email ?? '');
+        setIsShowState(user?.is_show)
+        setIsAdminState(user?.is_admin)
     }, [user])
 
     return (
@@ -66,18 +74,18 @@ export const SettingUserDetailModal: VFC<Props> = memo((props) => {
                                 <FormLabel>
                                     一覧表示
                                 </FormLabel>
-                                <Select name="is_show">
+                                <Select name="is_show" value={isShowState ?? ''} onChange={onChangeIsShow}>
                                     <option value=''>表示しない</option>
-                                    <option selected={user?.is_show && true} value='1'>表示する</option>
+                                    <option value='1'>表示する</option>
                                 </Select>
                             </FormControl>
                             <FormControl>
                                 <FormLabel>
                                     管理者権限
                                 </FormLabel>
-                                <Select name="is_admin">
+                                <Select name="is_admin" value={isAdminState ?? ''} onChange={onChangeIsAdmin}>
                                     <option value=''>権限なし</option>
-                                    <option selected={user?.is_admin && true} value='1'>権限あり</option>
+                                    <option value='1'>権限あり</option>
                                 </Select>
                             </FormControl>
                         </Stack>

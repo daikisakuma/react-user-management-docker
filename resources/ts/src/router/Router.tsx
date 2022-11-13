@@ -23,7 +23,22 @@ export const Router: VFC = memo(() => {
                     {/* <UserManagement /> */}
                     {/* <Setting /> */}
                 </Route>
-                <Route path="/react_user_management/home" render={({ match: { url } }) => (
+                <Route exact path="/react_user_management/my_page">
+                    <HeaderLayout>
+                        <MyPage />
+                    </HeaderLayout>
+                </Route>
+                <Route exact path="/react_user_management/user_management">
+                    <HeaderLayout>
+                        <UserManagement />
+                    </HeaderLayout>
+                </Route>
+                <Route exact path="/react_user_management/setting">
+                    <HeaderLayout>
+                        <Setting />
+                    </HeaderLayout>
+                </Route>
+                {/* <Route path="/react_user_management/home" render={({ match: { url } }) => (
                     <Switch>
                         {homeRoutes.map((route) => (
                             <Route
@@ -37,7 +52,7 @@ export const Router: VFC = memo(() => {
                             </Route>
                         ))}
                     </Switch>
-                )}/>
+                )}/> */}
             </LoginUserProvider>
             <Route path="*">
                     <Page404 />

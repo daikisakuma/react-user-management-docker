@@ -10,9 +10,9 @@ export const SideBar: VFC = memo(() => {
     const { loginUser } = useLoginUser();
 
     const onClickHome = useCallback(() => history.push("/react_user_management/home"), []);
-    const onClickMyPage = useCallback(() => history.push("/react_user_management/home/my_page"), []);
-    const onClickUserManagement = useCallback(() => history.push("/react_user_management/home/user_management"), []);
-    const onClickSetting = useCallback(() => history.push("/react_user_management/home/setting"), []);
+    const onClickMyPage = useCallback(() => history.push("/react_user_management/my_page"), []);
+    const onClickUserManagement = useCallback(() => history.push("/react_user_management/user_management"), []);
+    const onClickSetting = useCallback(() => history.push("/react_user_management/setting"), []);
 
         let path = location.pathname
         const pathAry = path.split('/');
@@ -26,7 +26,7 @@ export const SideBar: VFC = memo(() => {
             <ul>
                 <li><Link onClick={onClickMyPage} className={lastPathAry == "my_page" ? "selected-color" : ""}><i className="fas fa-home"></i>マイページ</Link></li>
                 <li><Link  onClick={onClickUserManagement} className={lastPathAry == "user_management" ? "selected-color" : ""}><i className="fa fa-users" aria-hidden="true"></i>ユーザー一覧</Link></li>
-                {loginUser.is_admin && (
+                {loginUser?.is_admin && (
                 <li><Link onClick={onClickSetting} className={lastPathAry == "setting" ? "selected-color" : ""}><i className="fa fa-cog" aria-hidden="true"></i>設定</Link></li>
                 )}
             </ul>

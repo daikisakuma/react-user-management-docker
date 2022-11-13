@@ -39222,13 +39222,13 @@ exports.SideBar = (0, react_2.memo)(function () {
     return history.push("/react_user_management/home");
   }, []);
   var onClickMyPage = (0, react_1.useCallback)(function () {
-    return history.push("/react_user_management/home/my_page");
+    return history.push("/react_user_management/my_page");
   }, []);
   var onClickUserManagement = (0, react_1.useCallback)(function () {
-    return history.push("/react_user_management/home/user_management");
+    return history.push("/react_user_management/user_management");
   }, []);
   var onClickSetting = (0, react_1.useCallback)(function () {
-    return history.push("/react_user_management/home/setting");
+    return history.push("/react_user_management/setting");
   }, []);
   var path = location.pathname;
   var pathAry = path.split('/');
@@ -39246,7 +39246,7 @@ exports.SideBar = (0, react_2.memo)(function () {
   }, react_1["default"].createElement("i", {
     className: "fa fa-users",
     "aria-hidden": "true"
-  }), "\u30E6\u30FC\u30B6\u30FC\u4E00\u89A7")), loginUser.is_admin && react_1["default"].createElement("li", null, react_1["default"].createElement(react_3.Link, {
+  }), "\u30E6\u30FC\u30B6\u30FC\u4E00\u89A7")), (loginUser === null || loginUser === void 0 ? void 0 : loginUser.is_admin) && react_1["default"].createElement("li", null, react_1["default"].createElement(react_3.Link, {
     onClick: onClickSetting,
     className: lastPathAry == "setting" ? "selected-color" : ""
   }, react_1["default"].createElement("i", {
@@ -39339,12 +39339,28 @@ exports.SettingUserDetailModal = (0, react_2.memo)(function (props) {
 
   var updateUser = (0, useUpdate_1.useUpdate)().updateUser;
 
+  var _c = (0, react_1.useState)(null),
+      isShowState = _c[0],
+      setIsShowState = _c[1];
+
+  var _d = (0, react_1.useState)(null),
+      isAdminState = _d[0],
+      setIsAdminState = _d[1];
+
   var onChangeName = function onChangeName(e) {
     return setName(e.target.value);
   };
 
   var onChangeEmail = function onChangeEmail(e) {
     return setEmail(e.target.value);
+  };
+
+  var onChangeIsShow = function onChangeIsShow(e) {
+    return setIsShowState(e.target.value);
+  };
+
+  var onChangeIsAdmin = function onChangeIsAdmin(e) {
+    return setIsShowState(e.target.value);
   };
 
   var onClickUpdate = function onClickUpdate() {
@@ -39356,6 +39372,8 @@ exports.SettingUserDetailModal = (0, react_2.memo)(function (props) {
 
     setName((_a = user === null || user === void 0 ? void 0 : user.name) !== null && _a !== void 0 ? _a : '');
     setEmail((_b = user === null || user === void 0 ? void 0 : user.email) !== null && _b !== void 0 ? _b : '');
+    setIsShowState(user === null || user === void 0 ? void 0 : user.is_show);
+    setIsAdminState(user === null || user === void 0 ? void 0 : user.is_admin);
   }, [user]);
   return react_1["default"].createElement(react_3.Modal, {
     isOpen: isOpen,
@@ -39386,18 +39404,20 @@ exports.SettingUserDetailModal = (0, react_2.memo)(function (props) {
     name: "email",
     onChange: onChangeEmail
   })), react_1["default"].createElement(react_3.FormControl, null, react_1["default"].createElement(react_3.FormLabel, null, "\u4E00\u89A7\u8868\u793A"), react_1["default"].createElement(react_3.Select, {
-    name: "is_show"
+    name: "is_show",
+    value: isShowState !== null && isShowState !== void 0 ? isShowState : '',
+    onChange: onChangeIsShow
   }, react_1["default"].createElement("option", {
     value: ''
   }, "\u8868\u793A\u3057\u306A\u3044"), react_1["default"].createElement("option", {
-    selected: (user === null || user === void 0 ? void 0 : user.is_show) && true,
     value: '1'
   }, "\u8868\u793A\u3059\u308B"))), react_1["default"].createElement(react_3.FormControl, null, react_1["default"].createElement(react_3.FormLabel, null, "\u7BA1\u7406\u8005\u6A29\u9650"), react_1["default"].createElement(react_3.Select, {
-    name: "is_admin"
+    name: "is_admin",
+    value: isAdminState !== null && isAdminState !== void 0 ? isAdminState : '',
+    onChange: onChangeIsAdmin
   }, react_1["default"].createElement("option", {
     value: ''
   }, "\u6A29\u9650\u306A\u3057"), react_1["default"].createElement("option", {
-    selected: (user === null || user === void 0 ? void 0 : user.is_admin) && true,
     value: '1'
   }, "\u6A29\u9650\u3042\u308A")))))), react_1["default"].createElement(react_3.ModalFooter, null, react_1["default"].createElement(PrimaryButton_1.PrimaryButton, {
     onClick: onClickUpdate
@@ -39683,7 +39703,6 @@ exports.UserDetailModal = (0, react_2.memo)(function (props) {
     setProfileImage(imageFile);
   }
 
-  console.log(loginUser);
   return react_1["default"].createElement(react_3.Modal, {
     isOpen: isOpen,
     onClose: onClose,
@@ -39728,7 +39747,7 @@ exports.UserDetailModal = (0, react_2.memo)(function (props) {
     },
     type: "text",
     id: "mask_file_01"
-  })))), (loginUser.is_admin || loginUser.id == (user === null || user === void 0 ? void 0 : user.id)) && react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement(react_3.FormControl, null, react_1["default"].createElement(react_3.FormLabel, null, "\u540D\u524D"), react_1["default"].createElement(react_3.Input, {
+  })))), ((loginUser === null || loginUser === void 0 ? void 0 : loginUser.is_admin) || (loginUser === null || loginUser === void 0 ? void 0 : loginUser.id) == (user === null || user === void 0 ? void 0 : user.id)) && react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement(react_3.FormControl, null, react_1["default"].createElement(react_3.FormLabel, null, "\u540D\u524D"), react_1["default"].createElement(react_3.Input, {
     value: name,
     name: "name",
     onChange: onChangeName
@@ -39752,39 +39771,9 @@ exports.UserDetailModal = (0, react_2.memo)(function (props) {
     value: hobby,
     name: "hobby",
     onChange: onChangeHobby
-  })))))), (loginUser.is_admin || loginUser.id == (user === null || user === void 0 ? void 0 : user.id)) && react_1["default"].createElement(react_3.ModalFooter, null, react_1["default"].createElement(PrimaryButton_1.PrimaryButton, {
+  })))))), ((loginUser === null || loginUser === void 0 ? void 0 : loginUser.is_admin) || (loginUser === null || loginUser === void 0 ? void 0 : loginUser.id) == (user === null || user === void 0 ? void 0 : user.id)) && react_1["default"].createElement(react_3.ModalFooter, null, react_1["default"].createElement(PrimaryButton_1.PrimaryButton, {
     onClick: onClickUpdate
   }, "\u66F4\u65B0")))));
-});
-
-/***/ }),
-
-/***/ "./resources/ts/src/components/pages/Home.tsx":
-/*!****************************************************!*\
-  !*** ./resources/ts/src/components/pages/Home.tsx ***!
-  \****************************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var __importDefault = this && this.__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports.Home = void 0;
-
-var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-
-var react_2 = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-
-exports.Home = (0, react_2.memo)(function () {
-  return react_1["default"].createElement("p", null, "Home\u30DA\u30FC\u30B8\u3067\u3059");
 });
 
 /***/ }),
@@ -39878,7 +39867,7 @@ exports.Login = (0, react_2.memo)(function () {
     as: "h1",
     size: "lg",
     textAlign: "center"
-  }, "\u30E6\u30FC\u30B6\u30FC\u7BA1\u7406\u30A2\u30D7\u30EA"), react_1["default"].createElement(react_3.Divider, {
+  }, "\u30E6\u30FC\u30B6\u30FC\u7BA1\u7406\u30A2\u30D7\u30EAa"), react_1["default"].createElement(react_3.Divider, {
     my: 4
   }), react_1["default"].createElement(react_3.Stack, {
     spacing: 6,
@@ -39990,7 +39979,7 @@ exports.MyPage = (0, react_2.memo)(function () {
     return getUsers();
   }, []);
   var targetUser = users.find(function (v) {
-    return v.id === loginUser.id;
+    return v.id === (loginUser === null || loginUser === void 0 ? void 0 : loginUser.id);
   }); // // 選択したユーザー情報を特定しモーダルを表示する
 
   var onClickUser = (0, react_1.useCallback)(function (id) {
@@ -40028,7 +40017,7 @@ exports.MyPage = (0, react_2.memo)(function () {
     isOpen: isOpen,
     onClose: onClose,
     getUsers: getUsers
-  }));
+  }), "MyPage");
 });
 
 /***/ }),
@@ -40506,7 +40495,7 @@ var useAuth = function useAuth() {
           title: "ログインしました",
           status: "success"
         });
-        history.push("/react_user_management/home/my_page");
+        history.push("/react_user_management/my_page");
       } else {
         showMessage({
           title: "ユーザーが見つかりません",
@@ -40766,10 +40755,38 @@ exports.useUpdate = useUpdate;
 "use strict";
 
 
-var __importDefault = this && this.__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
+var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  Object.defineProperty(o, k2, {
+    enumerable: true,
+    get: function get() {
+      return m[k];
+    }
+  });
+} : function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  o[k2] = m[k];
+});
+
+var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? function (o, v) {
+  Object.defineProperty(o, "default", {
+    enumerable: true,
+    value: v
+  });
+} : function (o, v) {
+  o["default"] = v;
+});
+
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) {
+    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+  }
+
+  __setModuleDefault(result, mod);
+
+  return result;
 };
 
 Object.defineProperty(exports, "__esModule", ({
@@ -40777,7 +40794,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.LoginUserProvider = exports.LoginUserContext = void 0;
 
-var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 
 var react_2 = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
@@ -40790,6 +40807,15 @@ var LoginUserProvider = function LoginUserProvider(props) {
       loginUser = _a[0],
       setLoginUser = _a[1];
 
+  (0, react_1.useEffect)(function () {
+    loginUser && localStorage.setItem('keyLoginUser', JSON.stringify(loginUser));
+  }, [loginUser]);
+  (0, react_1.useEffect)(function () {
+    var appState = localStorage.getItem('keyLoginUser');
+    var initialState = appState ? JSON.parse(appState) : [];
+    setLoginUser(initialState);
+  }, []);
+  console.log('loginUser', loginUser);
   return react_1["default"].createElement(exports.LoginUserContext.Provider, {
     value: {
       loginUser: loginUser,
@@ -40799,62 +40825,6 @@ var LoginUserProvider = function LoginUserProvider(props) {
 };
 
 exports.LoginUserProvider = LoginUserProvider;
-
-/***/ }),
-
-/***/ "./resources/ts/src/router/HomeRoutes.tsx":
-/*!************************************************!*\
-  !*** ./resources/ts/src/router/HomeRoutes.tsx ***!
-  \************************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var __importDefault = this && this.__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports.homeRoutes = void 0;
-
-var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-
-var Home_1 = __webpack_require__(/*! ../components/pages/Home */ "./resources/ts/src/components/pages/Home.tsx");
-
-var MyPage_1 = __webpack_require__(/*! ../components/pages/MyPage */ "./resources/ts/src/components/pages/MyPage.tsx");
-
-var Page404_1 = __webpack_require__(/*! ../components/pages/Page404 */ "./resources/ts/src/components/pages/Page404.tsx");
-
-var Setting_1 = __webpack_require__(/*! ../components/pages/Setting */ "./resources/ts/src/components/pages/Setting.tsx");
-
-var UserManagement_1 = __webpack_require__(/*! ../components/pages/UserManagement */ "./resources/ts/src/components/pages/UserManagement.tsx");
-
-exports.homeRoutes = [{
-  path: "/",
-  exact: true,
-  children: react_1["default"].createElement(Home_1.Home, null)
-}, {
-  path: "/my_page",
-  exact: false,
-  children: react_1["default"].createElement(MyPage_1.MyPage, null)
-}, {
-  path: "/user_management",
-  exact: false,
-  children: react_1["default"].createElement(UserManagement_1.UserManagement, null)
-}, {
-  path: "/setting",
-  exact: false,
-  children: react_1["default"].createElement(Setting_1.Setting, null)
-}, {
-  path: "*",
-  exact: false,
-  children: react_1["default"].createElement(Page404_1.Page404, null)
-}];
 
 /***/ }),
 
@@ -40892,25 +40862,26 @@ var HeaderLayout_1 = __webpack_require__(/*! ../components/templates/HeaderLayou
 
 var LoginUserProvider_1 = __webpack_require__(/*! ../providers/LoginUserProvider */ "./resources/ts/src/providers/LoginUserProvider.tsx");
 
-var HomeRoutes_1 = __webpack_require__(/*! ./HomeRoutes */ "./resources/ts/src/router/HomeRoutes.tsx");
+var UserManagement_1 = __webpack_require__(/*! ../components/pages/UserManagement */ "./resources/ts/src/components/pages/UserManagement.tsx");
+
+var Setting_1 = __webpack_require__(/*! ../components/pages/Setting */ "./resources/ts/src/components/pages/Setting.tsx");
+
+var MyPage_1 = __webpack_require__(/*! ../components/pages/MyPage */ "./resources/ts/src/components/pages/MyPage.tsx");
 
 exports.Router = (0, react_2.memo)(function () {
   return react_1["default"].createElement(react_router_dom_1.Switch, null, react_1["default"].createElement(LoginUserProvider_1.LoginUserProvider, null, react_1["default"].createElement(react_router_dom_1.Route, {
     exact: true,
     path: "/react_user_management"
   }, react_1["default"].createElement(Login_1.Login, null)), react_1["default"].createElement(react_router_dom_1.Route, {
-    path: "/react_user_management/home",
-    render: function render(_a) {
-      var url = _a.match.url;
-      return react_1["default"].createElement(react_router_dom_1.Switch, null, HomeRoutes_1.homeRoutes.map(function (route) {
-        return react_1["default"].createElement(react_router_dom_1.Route, {
-          key: route.path,
-          exact: route.exact,
-          path: "".concat(url).concat(route.path)
-        }, react_1["default"].createElement(HeaderLayout_1.HeaderLayout, null, route.children));
-      }));
-    }
-  })), react_1["default"].createElement(react_router_dom_1.Route, {
+    exact: true,
+    path: "/react_user_management/my_page"
+  }, react_1["default"].createElement(HeaderLayout_1.HeaderLayout, null, react_1["default"].createElement(MyPage_1.MyPage, null))), react_1["default"].createElement(react_router_dom_1.Route, {
+    exact: true,
+    path: "/react_user_management/user_management"
+  }, react_1["default"].createElement(HeaderLayout_1.HeaderLayout, null, react_1["default"].createElement(UserManagement_1.UserManagement, null))), react_1["default"].createElement(react_router_dom_1.Route, {
+    exact: true,
+    path: "/react_user_management/setting"
+  }, react_1["default"].createElement(HeaderLayout_1.HeaderLayout, null, react_1["default"].createElement(Setting_1.Setting, null)))), react_1["default"].createElement(react_router_dom_1.Route, {
     path: "*"
   }, react_1["default"].createElement(Page404_1.Page404, null)));
 });

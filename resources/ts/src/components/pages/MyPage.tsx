@@ -18,7 +18,7 @@ export const MyPage: VFC = memo(() => {
 
     let assetUrl = $("#react-user-management").data("asset");
     useEffect(() => getUsers(), [])
-    const targetUser = users.find((v) => v.id === loginUser.id);
+    const targetUser = users.find((v) => v.id === loginUser?.id);
 
     // // 選択したユーザー情報を特定しモーダルを表示する
     const onClickUser = useCallback( (id: number) => {
@@ -57,6 +57,7 @@ export const MyPage: VFC = memo(() => {
                 onClose={onClose}
                 getUsers={getUsers}
             />
+            MyPage
         </div>
     );
 });
