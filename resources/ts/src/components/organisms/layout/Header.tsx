@@ -10,8 +10,8 @@ import { useLoginUser } from '../../../hooks/useLoginUser';
 
 export const Header: VFC = memo(() => {
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const history = useHistory();
-    const { loginUser } = useLoginUser();
+    const history                     = useHistory();
+    const { loginUser }               = useLoginUser();
 
     const onClickHome = useCallback(() => history.push("/react_user_management/home"), []);
     const onClickMyPage = useCallback(() => history.push("/react_user_management/home/my_page"), []);

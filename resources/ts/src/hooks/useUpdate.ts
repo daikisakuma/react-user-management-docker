@@ -16,9 +16,9 @@ export const useUpdate = () => {
         let objFormElement   = $(strFormSelector);
         let config = {
             headers: {
-              'content-type':  'multipart/form-data',
+                'content-type':  'multipart/form-data',
             }
-          };
+        };
 
         // formの中のnameを扱いやすくします
         const serializeObject = ((form) => {

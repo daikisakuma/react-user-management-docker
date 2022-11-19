@@ -23,6 +23,18 @@ class ReactUserManagemntController extends Controller
      * @param void
      * @return array ユーザー一覧
      */
+    public function registerUser(Request $request)
+    {
+        $user = \App\Models\User::registerUser($request);
+        return $user;
+    }
+
+    /**
+     * ユーザー情報一覧取得
+     * @access public
+     * @param void
+     * @return array ユーザー一覧
+     */
     public function getAllUsers()
     {
         $allUsers = \App\Models\User::getAllUsers();

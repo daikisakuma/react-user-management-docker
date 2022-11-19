@@ -29,7 +29,7 @@ export const MyPage: VFC = memo(() => {
     return (
         <div className='profile-page'>
             {loading ? (
-                <Center h="100vh">
+                <Center h="80vh">
                     <Spinner color="#fff"/>
                 </Center>
             ) : (
@@ -57,7 +57,6 @@ export const MyPage: VFC = memo(() => {
                 onClose={onClose}
                 getUsers={getUsers}
             />
-            MyPage
         </div>
     );
 });

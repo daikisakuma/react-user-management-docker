@@ -9,6 +9,7 @@
         data-api-get-user={{ route('api.get.user') }}
         data-api-get-all-users={{ route('api.get.all.users') }}
         data-api-update-user={{ route('api.update.user') }}
+        data-api-register-user={{ route('api.register.user') }}
     ></div>
 </div>
 @endsection

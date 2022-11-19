@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -51,6 +52,24 @@ class User extends Authenticatable
 
 
     /**
+     * ユーザー登録
+     * @static
+     * @access public
+     * @param void
+     * @return array ユーザー
+     *
+     */
+    public static function registerUser($request) {
+        $user           = new User();
+        $user->name     = $request->name;
+        $user->email    = $request->email;
+        $user->password  = $request->password;
+        $user->save();
+
+        return $user;
+    }
+
+    /**
      * ユーザー情報一覧取得
      * @static
      * @access public
@@ -73,7 +92,11 @@ class User extends Authenticatable
      */
     public static function getUser($request) {
         $user = User::where('email', '=', $request->email)->first();
-        return $user;
+        if (Hash::check($request->password, $user->password)) {
+            return $user;
+        } else {
+            dd('パスワードが一致しない');
+        }
     }
 
     /**
@@ -85,33 +108,33 @@ class User extends Authenticatable
      *
      */
     public static function updateUser($request) {
-        $objDao = self::find($request->id);
+        $user = self::find($request->id);
         switch ($request->operation_mode) {
             case "userDetail":
                 $image = (!is_string($request->profile_image)) ? $request->profile_image->store('public/image') : "";
                 $image = str_replace('public/image/', '', $image);
-                $image && ($objDao->profile_image = $image);
+                $image && ($user->profile_image = $image);
 
-                $objDao->name                 = $request->name;
-                $objDao->birth_place          = $request->birth_place;
-                $objDao->animal               = $request->animal;
-                $objDao->hobby                = $request->hobby;
-                $objDao->special_skill        = $request->special_skill;
-                $objDao->favorite_entertainer = $request->favorite_entertainer;
+                $user->name                 = $request->name;
+                $user->birth_place          = $request->birth_place;
+                $user->animal               = $request->animal;
+                $user->hobby                = $request->hobby;
+                $user->special_skill        = $request->special_skill;
+                $user->favorite_entertainer = $request->favorite_entertainer;
                 break;
 
             case "settingUserDetail":
-                $objDao->name     = $request->name;
-                $objDao->email    = $request->email;
-                $objDao->is_show  = $request->is_show;
-                $objDao->is_admin = $request->is_admin;
+                $user->name     = $request->name;
+                $user->email    = $request->email;
+                $user->is_show  = $request->is_show;
+                $user->is_admin = $request->is_admin;
                 break;
         }
 
-        $objDao->save();
+        $user->save();
 
 
-        return $objDao;
+        return $user;
     }
 
 }

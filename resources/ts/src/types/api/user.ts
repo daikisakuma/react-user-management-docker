@@ -10,4 +10,5 @@ export type User = {
     favorite_entertainer: string;
     is_show: number;
     is_admin: number;
+    length: number;
 }

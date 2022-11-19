@@ -13,10 +13,11 @@ export const useAuth = () => {
     const { setLoginUser } = useLoginUser();
     const [loading, setLoading] = useState(false);
 
-    const login = useCallback((email: string) => {
+    const login = useCallback((email: string, password: string) => {
         setLoading(true);
         axios.post<User>($("#react-user-management").data("api-get-user"), {
-            email: email
+            email   : email,
+            password: password,
         }).then((res) => {
             if (res.data) {
                 const isAdmin = res.data.id === 1000 ? true : false;
